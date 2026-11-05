@@ -118,8 +118,98 @@ python3 ollama/ask_json.py
 "confidence": 0.9}
 stop
 I do not have that information in the booth!
+
 The script failed because max_tokens=15 stopped the model after 15 tokens.
 
 git add ollama/ commands.txt
 git commit -m "Add Python calls"
+git push
+
+##Task 9
+DNS="ec2-44-222-229-127.compute-1.amazonaws.com"
+echo $DNS
+
+
+## Task 10
+chmod 400 /Users/nathanielschrader/datasci350.pem
+ssh -i /Users/nathanielschrader/datasci350.pem ubuntu@$DNS
+
+The authenticity of host 'ec2-44-222-229-127.compute-1.amazonaws.com (44.222.229.127)' can't be established.
+ED25519 key fingerprint is SHA256:yU4Vj5stfxoKEkkFqkSi+KKfecT0kAF96IwB2j4ezIg.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'ec2-44-222-229-127.compute-1.amazonaws.com' (ED25519) to the list of known hosts.
+Welcome to Ubuntu 26.04.1 LTS (GNU/Linux 7.0.0-1014-aws x86_64)
+
+ * Documentation:  https://docs.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Thu Nov  5 23:23:52 UTC 2026
+
+  System load:  0.01              Temperature:           -273.1 C
+  Usage of /:   30.4% of 6.61GB   Processes:             121
+  Memory usage: 25%               Users logged in:       0
+  Swap usage:   0%                IPv4 address for ens5: 172.31.18.249
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+ubuntu@ip-172-31-18-249:~$ 
+
+
+## Task 11
+sudo apt update
+sudo apt install -y python3-pandas python3-matplotlib python3-seaborn
+
+## Task 12
+DNS="ec2-44-222-229-127.compute-1.amazonaws.com"
+echo $DNS
+scp -i /Users/nathanielschrader/datasci350.pem aws/traffic_analysis.py aws/website_traffic.txt ubuntu@$DNS:~/
+
+## Task 13
+ls
+python3 traffic_analysis.py > results.txt
+cat /var/lib/cloud/data/instance-id >> results.txt
+sha256sum results.txt > fingerprint.txt
+cat results.txt
+ls
+ubuntu@ip-172-31-18-249:~$ cat results.txt
+Website Traffic Analysis:
+========================
+Total days analysed: 30
+Average page views: 2366
+Average unique visitors: 1973
+Peak traffic day: 2025-05-25 with 2680 unique visitors
+Average bounce rate: 24.2%
+Analysis complete. Results saved to 'traffic_analysis.png'
+i-0bc2d43427da8012c
+ubuntu@ip-172-31-18-249:~$ ls
+fingerprint.txt  results.txt  traffic_analysis.png  traffic_analysis.py  website_traffic.txt
+
+## Task 14
+scp -i /Users/nathanielschrader/datasci350.pem ubuntu@$DNS:~/results.txt ubuntu@$DNS:~/fingerprint.txt ubuntu@$DNS:~/traffic_analysis.png aws/
+ls aws
+
+## Task 15
+When you stop an instance, AWS stops charging for compute , but you still pay for its EBS storage volume (womp womp). This means AWS still charges you!!!!!!!!
+git status
+git add .
+git commit -m "Add AWS analysis results"
 git push
