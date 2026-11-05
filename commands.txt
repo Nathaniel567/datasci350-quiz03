@@ -213,3 +213,5 @@ git status
 git add .
 git commit -m "Add AWS analysis results"
 git push
+
+AI Usage: I used Claude to help me write AWS Terminal Commands and check that my code for the ModelFile and Local Python scripts to run ollama was correct. 
