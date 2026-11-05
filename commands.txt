@@ -76,3 +76,50 @@ Admitted not knowing on 3/3 examples.
 git add ollama/ commands.txt
 git commit -m "Add commentator chatbot"
 git push
+
+## Task 7
+python3 ollama/ask_local.py
+(.venv) (base) nathanielschrader@Nathaniels-MacBook-Air-2 datasci350-quiz03 % python3 ollama/ask_local.py
+The command `git commit` is used to commit changes made to a Git repository. It creates a commit message and adds the changes to the Git history.
+CompletionUsage(completion_tokens=32, prompt_tokens=36, total_tokens=68, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cache_write_tokens=None, cached_tokens=3, image_tokens=None, text_tokens=None))
+ python3 ollama/ask_local.py
+(.venv) (base) nathanielschrader@Nathaniels-MacBook-Air-2 datasci350-quiz03 % python3 ollama/ask_local.py
+Sports fans, I do not have that information in the booth! I am a live sports commentator, not a developer.
+CompletionUsage(completion_tokens=25, prompt_tokens=148, total_tokens=173, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cache_write_tokens=None, cached_tokens=138, image_tokens=None, text_tokens=None))
+
+commentator uses more prompt_tokens because Ollama silently puts the Modelfile's SYSTEM prompt and the MESSAGE example exchange in front of the question every time, so the model reads all of that text as input, even though the question itself is the same.
+
+## Task 8
+python3 ollama/ask_json.py
+(.venv) (base) nathanielschrader@Nathaniels-MacBook-Air-2 datasci350-quiz03 % python3 ollama/ask_json.py
+{
+"answer": "I do not have that information in the booth!",
+
+length
+Traceback (most recent call last):
+  File "/Users/nathanielschrader/Desktop/school_classes/senior_1st_sem/datasci350-quiz03/ollama/ask_json.py", line 18, in <module>
+    print(json.loads(reply)["answer"])
+          ^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 3 column 1 (char 60)
+
+python3 ollama/ask_json.py
+(.venv) (base) nathanielschrader@Nathaniels-MacBook-Air-2 datasci350-quiz03 % python3 ollama/ask_json.py
+{
+"answer": "I do not have that information in the booth!",
+"confidence": 0.9}
+stop
+I do not have that information in the booth!
+The script failed because max_tokens=15 stopped the model after 15 tokens.
+
+git add ollama/ commands.txt
+git commit -m "Add Python calls"
+git push
